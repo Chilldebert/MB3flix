@@ -1,4 +1,4 @@
-MB3
+MB3flix
 ===
 
 A web application of your Media Browser 3 library written in PHP / MySQL.
