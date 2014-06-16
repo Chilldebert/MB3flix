@@ -20,6 +20,39 @@ If you run one of these scripts, the tables will be populated. The scripts then 
 Screenshots
 ---
 
+### Landing Page
+Landing page shows the latest added movies
+
+![Landing Page](https://raw.githubusercontent.com/Chilldebert/MB3flix/master/docs/screenshots/01.png)
+
+### IMDb rating
+Shows the movies with the highest IMDb ratings
+
+![IMDb rating](https://raw.githubusercontent.com/Chilldebert/MB3flix/master/docs/screenshots/02.png)
+
+### Genres
+Movies and TV shows can be sorted by genres
+
+![Genres](https://raw.githubusercontent.com/Chilldebert/MB3flix/master/docs/screenshots/03.png)
+
+### TV Shows
+MB3flix lists your TV shows with a detailed view of the show
+
+![TV Shows](https://raw.githubusercontent.com/Chilldebert/MB3flix/master/docs/screenshots/04.png)
+![TV Show Details](https://raw.githubusercontent.com/Chilldebert/MB3flix/master/docs/screenshots/05.png)
+
+### Movie Details
+A detailed view of a movie, similar to the original Media Browser 3 application.
+
+![Movie Details](https://raw.githubusercontent.com/Chilldebert/MB3flix/master/docs/screenshots/06.png)
+
+Similar movies and additional infos, like Awards & Reviews
+![Similar Movies & Awards](https://raw.githubusercontent.com/Chilldebert/MB3flix/master/docs/screenshots/07.png)
+
+### Person Details
+A detailed view with informations about the person. Shows in which movies or TV shows the person participated.
+![Person Details](https://raw.githubusercontent.com/Chilldebert/MB3flix/master/docs/screenshots/08.png)
+
 To-Do
 ---
 
@@ -29,3 +62,4 @@ To-Do
 - Clean code
 - More sorting features
 - Fix/Optimize caching scripts
+- Language support
