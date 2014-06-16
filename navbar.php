@@ -42,7 +42,7 @@ require("config.php");
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
 	  <ul class="nav navbar-nav navbar-right">
-        <li><a href="options.php"><span class="glyphicon glyphicon-cog"></span></a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>
 	  </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

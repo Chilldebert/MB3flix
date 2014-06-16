@@ -5,10 +5,10 @@ $result = $mysqli->query("SELECT * FROM genres ORDER BY name ASC") or die(mysql_
 ?>
 
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Jokefinger</title>
+    <title>MB3flix</title>
     <meta name="description" content="">
     <meta name="author" content="">
 <style type="text/css">

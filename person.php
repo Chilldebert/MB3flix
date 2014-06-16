@@ -57,10 +57,10 @@ else{
 	}
 ?>
 
-<html lang="de">
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Jokefinger</title>
+    <title>MB3flix</title>
     <meta name="description" content="">
     <meta name="author" content="">
 <style type="text/css"> 

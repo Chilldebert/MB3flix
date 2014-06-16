@@ -9,10 +9,10 @@ $result_movie_count = $mysqli->query("SELECT id, name, movie_count FROM people  
 
 ?>
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Jokefinger</title>
+    <title>MB3flix</title>
     <meta name="description" content="">
     <meta name="author" content="">
 

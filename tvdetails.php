@@ -40,6 +40,9 @@ while($row=$result->fetch_assoc()){
 if($end_date == NULL){
 	$end_date = "Present";
 }	
+else{
+	$end_date = substr($end_date,0,4);
+}
 
 //Exploded People
 $exploded_people = explodePeople($imploded_people);
@@ -83,10 +86,10 @@ while($obj=$query->fetch_object()){
   // }
 ?>
 
-<html lang="de">
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Jokefinger</title>
+    <title>MB3flix</title>
     <meta name="description" content="">
     <meta name="author" content="">
 <style type="text/css"> 
@@ -132,7 +135,7 @@ echo '<h2>';
 
 //Name and Picture
 if(file_exists('images/series/'.$id.'/poster.jpg')){
-			echo '<img alt="'.$name.'" src="images/series/'.$id.'/poster.jpg" width="200" height="300" style="box-shadow:10px 10px 10px black; float:left; margin-right:20px; margin-bottom:10px">'.$name.' <small>'.substr($premiere_date,0,4).' - '.substr($end_date,0,4).' '.$runtime_min.'min '.$mpaa_rating.'</small>';
+			echo '<img alt="'.$name.'" src="images/series/'.$id.'/poster.jpg" width="200" height="300" style="box-shadow:10px 10px 10px black; float:left; margin-right:20px; margin-bottom:10px">'.$name.' <small>'.substr($premiere_date,0,4).' - '.$end_date.' '.$runtime_min.'min '.$mpaa_rating.'</small>';
 		}
 		else{
 			echo '<img alt="nothumb" src="images/nothumb.jpg" width="200" height="300" style="box-shadow:10px 10px 10px black; float:left; margin-right:20px; margin-bottom:10px">'.$name.'';
