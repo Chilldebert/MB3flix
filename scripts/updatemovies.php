@@ -3,6 +3,7 @@ ini_set('max_execution_time', 3000);
 /* Wayneflix.com Data Creation Script
  */
 
+
 error_reporting(E_ALL ^  E_NOTICE); 
 
 require_once('settings.php');
@@ -12,6 +13,7 @@ $start = microtime(true);
 $serverURL = 'http://' . $serverIP . ':' . $serverPort . '/mediabrowser/'; // Constructed Server URL.
 $imagePath  = '../images/movies/';  // Image Storage Path.
 $limit = 6;  //Similar Movies to retrieve
+$movielimit = 100; //Movies to retrieve (Sort by Date added)
 
 function createDirectory($path) {
     if (!is_dir($path)) {
@@ -208,6 +210,32 @@ function updateSimilarTitles($dbh, $movieID, $similar_array, $limit) {
     }
 }
 
+function updateUserData($dbh, $movieID) {
+/* 
+ * Updates the user data for every movie
+ * Table: movies_to_users
+ * Field: userid
+ * Field: movieid
+ * Field: rating
+ * Field: play_count
+ * Field: is_favorite
+ * Field: likes
+ * Field: last_played
+ * Field: played
+ */
+   try {
+            echo "\tUpdating Similar Movies...\n";
+            foreach ($similar_array['Items'] as $similar) {
+                $addSimilar = $dbh->prepare("REPLACE INTO movies_similar (movieid, similarid) VALUES (?, ?)");
+                $addSimilar->execute(array($movieID, $similar['Id']));
+            }
+    }
+    catch(PDOException $e) {
+            echo $e->getMessage();
+            exit(0);
+    }
+}
+
 try
 {
     $dbh = new PDO("mysql:host=$hostname;dbname=$dbname;charset=utf8", $username, $password, $options);
@@ -238,9 +266,9 @@ foreach ($genres['Items'] as $genre) {
 echo "\n\n";
 echo "Retrieving list of movies from server...\n";
 //Hier Hinzufügen: JSON
-$movies = getData($serverURL . '/Users/' . $userHash . '/Items?Recursive=true&IncludeItemTypes=Movie&SortBy=SortName&Fields=People,Studios,Budget,CriticRatingSummary,CriticRating,CommunityRating,Metarating,AwardSummary,DateCreated,Genres,HomePageUrl,IndexOptions,MediaStreams,Overview,ProviderIds,Revenue,SortName,TrailerUrl,RunTimeTicks,ExternalUrls,CriticRatingSummary,Path,MediaSources,MediaStreams,RemoteTrailers,Taglines,HomePageUrl,ProductionLocations');
+$movies = getData($serverURL . '/Users/' . $userHash . '/Items?Recursive=true&IncludeItemTypes=Movie&Fields=People,Studios,Budget,CriticRatingSummary,CriticRating,CommunityRating,Metarating,AwardSummary,DateCreated,Genres,HomePageUrl,IndexOptions,MediaStreams,Overview,ProviderIds,Revenue,SortName,TrailerUrl,RunTimeTicks,ExternalUrls,CriticRatingSummary,Path,MediaSources,MediaStreams,RemoteTrailers,Taglines,HomePageUrl,ProductionLocations&SortBy=DateCreated&SortOrder=Descending&Limit='.$movielimit.'');
 $movies = json_decode($movies, true);
-echo "Found " . $movies['TotalRecordCount'] . " movies.\n\n";
+echo "Updating latest '.$movielimit.' movies...\n";
 sleep(1);
 
 $i = 0; // Count Processed Records.

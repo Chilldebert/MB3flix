@@ -9,6 +9,7 @@ require_once('settings.php');
 
 $start = microtime(true);
 
+
 $serverURL = 'http://' . $serverIP . ':' . $serverPort . '/mediabrowser/'; // Constructed Server URL.
 $imagePath  = '../images/series/';  // Image Storage Path.
 $imagePathGenre = '../images/genres/';  // Image Storage Path for Genres.
@@ -123,7 +124,7 @@ function buildSeries($dbh, $serie) {
 			//Hier Hinzufügen: JSON Befehl
             $values = array($serie['Id'], $added[0], $serie['Name'], $serie['SortName'], $serie['ProductionYear'], $serie['OfficialRating'], $serie['Overview'], $serie['IsPlaceHolder'], $serie['IsHD'], $added2[0], $serie['ExternalUrls'][0]['Url'], $serie['ExternalUrls'][0]['Url'], $serie['ExternalUrls'][2]['Url'], $serie['ExternalUrls'][3]['Url'], $serie['Path'], $serie['CommunityRating'], $imploded_people, $imploded_studios, $serie['Status'], $serie['AirTime'], $serie['AirDays'][0], $serie['EndDate'], $serie['RunTimeTicks'], $serie['HomePageUrl']);
             //Hier Hinzufügen: SQL Zeile und ?
-            $query = $dbh->prepare("REPLACE INTO series (id, date_added, name, sort_name, release_year, mpaa_rating, overview, virtual, hd, premiere_date, imdb_url, tmdb_url, tvdb_url, zap2it_url, path, community_rating, people, studios, status, airtime, airdays, end_date, runtime_ticks, homepage_url) VALUES (?, STR_TO_DATE(?,'%Y-%m-%dT%H:%i:%s'), ?, ?, ?, ?, ?, ?, ?, STR_TO_DATE(?,'%Y-%m-%dT%H:%i:%s'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $query = $dbh->prepare("INSERT INTO series (id, date_added, name, sort_name, release_year, mpaa_rating, overview, virtual, hd, premiere_date, imdb_url, tmdb_url, tvdb_url, zap2it_url, path, community_rating, people, studios, status, airtime, airdays, end_date, runtime_ticks, homepage_url) VALUES (?, STR_TO_DATE(?,'%Y-%m-%dT%H:%i:%s'), ?, ?, ?, ?, ?, ?, ?, STR_TO_DATE(?,'%Y-%m-%dT%H:%i:%s'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE id=id");
 
             $query->execute($values);
     }
@@ -212,7 +213,7 @@ function buildEpisodes($dbh, $episode) {
 			//Hier Hinzufügen: JSON Befehl
             $values = array($episode['Id'], $added[0], $episode['Name'], $episode['SortName'], $episode['ProductionYear'], $episode['OfficialRating'], $episode['Overview'], $episode['IsPlaceHolder'], $episode['IsHD'], $episode['DvdSeasonNumber'], $episode['DvdEpisodeNumber'], $episode['SeriesId'], $episode['SeasonId'], $episode['LocationType']);
             //Hier Hinzufügen: SQL Zeile und ?
-            $query = $dbh->prepare("REPLACE INTO episodes (id, date_added, name, sort_name, release_year, mpaa_rating, overview, virtual, hd, season_nr, episode_nr, seriesid, seasonid, location_type) VALUES (?, STR_TO_DATE(?,'%Y-%m-%dT%H:%i:%s'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $query = $dbh->prepare("INSERT INTO episodes (id, date_added, name, sort_name, release_year, mpaa_rating, overview, virtual, hd, season_nr, episode_nr, seriesid, seasonid, location_type) VALUES (?, STR_TO_DATE(?,'%Y-%m-%dT%H:%i:%s'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE id = id");
 
             $query->execute($values);
     }
@@ -245,7 +246,7 @@ function buildSeasons($dbh, $season) {
 			//Hier Hinzufügen: JSON Befehl
             $values = array($season['Id'], $added[0], $season['Name'], $season['IndexNumber'], $season['SortName'], $season['SeriesId'], $season['LocationType'], $season['Path']);
             //Hier Hinzufügen: SQL Zeile und ?
-            $query = $dbh->prepare("REPLACE INTO seasons (id, date_added, name, index_number, sort_name, seriesid, location_type, path) VALUES (?, STR_TO_DATE(?,'%Y-%m-%dT%H:%i:%s'), ?, ?, ?, ?, ?, ?)");
+            $query = $dbh->prepare("INSERT INTO seasons (id, date_added, name, index_number, sort_name, seriesid, location_type, path) VALUES (?, STR_TO_DATE(?,'%Y-%m-%dT%H:%i:%s'), ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE id = id");
 
             $query->execute($values);
     }

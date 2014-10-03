@@ -25,8 +25,10 @@ require("config.php");
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="movies.php?c=newest">Newest</a></li>
 				<li role="presentation"><a role="menuitem" tabindex="-1" href="movies.php?c=hd">HD</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="movies.php?c=imdb">Top IMDB Rating</a></li>
+				<li role="presentation"><a role="menuitem" tabindex="-1" href="movies.php?c=unseen">Unseen</a></li>
                 <li role="presentation" class="divider"></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="movies.php?c=all">All Movies</a></li>
+				<li role="presentation"><a role="menuitem" tabindex="-1" href="list.php">Movie List</a></li>
               </ul>
         </li>
         <li><a href="genres.php">Genres</a></li>
@@ -42,7 +44,7 @@ require("config.php");
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
 	  <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>
+        <li><a href="options.php"><span class="glyphicon glyphicon-cog"></span></a></li>
 	  </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
