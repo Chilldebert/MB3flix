@@ -1,8 +1,8 @@
 @echo off
 ::Path to php.exe
-set php=
+set php=C:\\xampp\php\php.exe 
 ::Path to MB3flix scripts folder
-set path=
+set path=C:\\xampp\htdocs\df\scripts\
 
 :START
 echo ________________________________________________________________

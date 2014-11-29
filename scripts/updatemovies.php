@@ -12,8 +12,6 @@ $start = microtime(true);
 
 $serverURL = 'http://' . $serverIP . ':' . $serverPort . '/mediabrowser/'; // Constructed Server URL.
 $imagePath  = '../images/movies/';  // Image Storage Path.
-$limit = 6;  //Similar Movies to retrieve
-$movielimit = 100; //Movies to retrieve (Sort by Date added)
 
 function createDirectory($path) {
     if (!is_dir($path)) {
@@ -254,7 +252,7 @@ createDirectory($imagePath);
 
 // Build Genres
 echo "Retrieving list of genres from server...\n";
-$genres = getData($serverURL . 'Genres?UserId=' . $userHash . '&IncludeItemTypes=Movie');
+$genres = mb3getdata($serverURL . 'Genres?UserId=' . $userHash . '&IncludeItemTypes=Movie&format=json', $resp);
 $genres = json_decode($genres,true);
 echo "Found " . $genres['TotalRecordCount'] . " genres.\n";
 echo "Updating Database...\n";
@@ -266,9 +264,9 @@ foreach ($genres['Items'] as $genre) {
 echo "\n\n";
 echo "Retrieving list of movies from server...\n";
 //Hier Hinzufügen: JSON
-$movies = getData($serverURL . '/Users/' . $userHash . '/Items?Recursive=true&IncludeItemTypes=Movie&Fields=People,Studios,Budget,CriticRatingSummary,CriticRating,CommunityRating,Metarating,AwardSummary,DateCreated,Genres,HomePageUrl,IndexOptions,MediaStreams,Overview,ProviderIds,Revenue,SortName,TrailerUrl,RunTimeTicks,ExternalUrls,CriticRatingSummary,Path,MediaSources,MediaStreams,RemoteTrailers,Taglines,HomePageUrl,ProductionLocations&SortBy=DateCreated&SortOrder=Descending&Limit='.$movielimit.'');
+$movies = mb3getdata($serverURL . '/Users/' . $userHash . '/Items?Recursive=true&IncludeItemTypes=Movie&Fields=People,Studios,Budget,CriticRatingSummary,CriticRating,CommunityRating,Metarating,AwardSummary,DateCreated,Genres,HomePageUrl,IndexOptions,MediaStreams,Overview,ProviderIds,Revenue,SortName,TrailerUrl,RunTimeTicks,ExternalUrls,CriticRatingSummary,Path,MediaSources,MediaStreams,RemoteTrailers,Taglines,HomePageUrl,ProductionLocations&SortBy=DateCreated&SortOrder=Descending&Limit='.$movielimit.'&format=json', $resp);
 $movies = json_decode($movies, true);
-echo "Updating latest '.$movielimit.' movies...\n";
+echo 'Updating latest '.$movielimit.' movies...\n';
 sleep(1);
 
 $i = 0; // Count Processed Records.
@@ -279,7 +277,7 @@ foreach ($movies['Items'] as $movie) {
     $success = buildMovies($dbh, $movie);
     
     $success = updateGenres($dbh, $movie);
-    $similar = getData( $serverURL . 'Movies/' . $movie['Id'] . '/Similar?IncludeTrailers=false&UserId=' . $userHash . '&Limit=' . $limit);
+    $similar = mb3getdata( $serverURL . 'Movies/' . $movie['Id'] . '/Similar?IncludeTrailers=false&UserId=' . $userHash . '&Limit=' . $limit . '&format=json', $resp);
     $similar = json_decode($similar,true);
     $success = updateSimilarTitles($dbh, $movie['Id'], $similar, $limit);
 

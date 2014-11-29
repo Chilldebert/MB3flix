@@ -13,7 +13,6 @@ $start = microtime(true);
 $serverURL = 'http://' . $serverIP . ':' . $serverPort . '/mediabrowser/'; // Constructed Server URL.
 $imagePath  = '../images/series/';  // Image Storage Path.
 $imagePathGenre = '../images/genres/';  // Image Storage Path for Genres.
-$limit = 8;  //Similar Series to retrieve
 
 function createDirectory($path) {
     if (!is_dir($path)) {
@@ -275,7 +274,7 @@ createDirectory($imagePath);
 
 // Build Genres
 echo "Retrieving list of genres from server...\n";
-$genres = getData($serverURL . 'Genres?UserId=' . $userHash . '&IncludeItemTypes=Series');
+$genres = mb3getdata($serverURL . 'Genres?UserId=' . $userHash . '&IncludeItemTypes=Series&format=json', $resp);
 $genres = json_decode($genres,true);
 echo "Found " . $genres['TotalRecordCount'] . " genres.\n";
 echo "Updating Database...\n";
@@ -294,7 +293,7 @@ foreach ($genres['Items'] as $genre) {
 echo "\n\n";
 echo "Retrieving list of Episodes from server...\n";
 //Hier Hinzufügen: JSON
-$episodes = getData($serverURL . '/Users/' . $userHash . '/Items?Recursive=true&IncludeItemTypes=Episode&SortBy=SortName&Fields=DateCreated,Genres,IndexOptions,Overview,SortName,DvdSeasonNumber,DvdEpisodeNumber,SeriesId,SeasonId,LocationType');
+$episodes = mb3getdata($serverURL . '/Users/' . $userHash . '/Items?Recursive=true&IncludeItemTypes=Episode&SortBy=SortName&Fields=DateCreated,Genres,IndexOptions,Overview,SortName,DvdSeasonNumber,DvdEpisodeNumber,SeriesId,SeasonId,LocationType&format=json', $resp);
 $episodes = json_decode($episodes, true);
 echo "Found " . $episodes['TotalRecordCount'] . " Episodes.\n\n";
 
@@ -303,7 +302,7 @@ echo "Found " . $episodes['TotalRecordCount'] . " Episodes.\n\n";
 echo "\n\n";
 echo "Retrieving list of seasons from server...\n";
 //Hier Hinzufügen: JSON
-$seasons = getData($serverURL . '/Users/' . $userHash . '/Items?Recursive=true&IncludeItemTypes=Season&SortBy=Name&Fields=Name,Id,DateCreated,IndexOptions,SortName,IndexNumber,SeriesId,LocationType,Path');
+$seasons = mb3getdata($serverURL . '/Users/' . $userHash . '/Items?Recursive=true&IncludeItemTypes=Season&SortBy=Name&Fields=Name,Id,DateCreated,IndexOptions,SortName,IndexNumber,SeriesId,LocationType,Path&format=json', $resp);
 $seasons = json_decode($seasons, true);
 echo "Found " . $seasons['TotalRecordCount'] . " seasons.\n\n";
 
@@ -312,7 +311,7 @@ echo "Found " . $seasons['TotalRecordCount'] . " seasons.\n\n";
 echo "\n\n";
 echo "Retrieving list of series from server...\n";
 //Hier Hinzufügen: JSON
-$series = getData($serverURL . '/Users/' . $userHash . '/Items?Recursive=true&IncludeItemTypes=Series&SortBy=SortName&Fields=DateCreated,Genres,IndexOptions,Overview,SortName,PremiereDate,ExternalUrls,Path,CommunityRating,People,Studios,Status,AirTime,AirDays,EndDate,RunTimeTicks,HomePageUrl');
+$series = mb3getdata($serverURL . '/Users/' . $userHash . '/Items?Recursive=true&IncludeItemTypes=Series&SortBy=SortName&Fields=DateCreated,Genres,IndexOptions,Overview,SortName,PremiereDate,ExternalUrls,Path,CommunityRating,People,Studios,Status,AirTime,AirDays,EndDate,RunTimeTicks,HomePageUrl&format=json', $resp);
 $series = json_decode($series, true);
 echo "Found " . $series['TotalRecordCount'] . " Series.\n\n";
 sleep(1);

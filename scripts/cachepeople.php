@@ -138,7 +138,7 @@ echo "WayneFlix Database Update.\n\n";
 // Build People
 echo "Retrieving list of people from server...\n";
 echo "If you got a lot of people, this may take a while! \n";
-$persons = getData($serverURL . 'Persons?UserId=' . $userHash . '&IncludeItemTypes=Movie&Fields=EndDate,Overview,ExternalUrls,ProductionLocations,MovieCount,SeriesCount');
+$persons = mb3getdata($serverURL . 'Persons?UserId=' . $userHash . '&IncludeItemTypes=Movie&Fields=EndDate,Overview,ExternalUrls,ProductionLocations,MovieCount,SeriesCount&format=json', $resp);
 $persons = json_decode($persons,true);
 echo "Found " . $persons['TotalRecordCount'] . " people.\n";
 echo "Updating Database...\n";
